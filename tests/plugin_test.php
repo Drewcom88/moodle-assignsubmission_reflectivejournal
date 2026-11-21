@@ -22,6 +22,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assign_submission_reflectivejournal::class)]
 /**
  * Tests for the hooks Moodle Assignment calls on the plugin.
  *
@@ -30,7 +31,6 @@ require_once(__DIR__ . '/journal_testcase.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \assign_submission_reflectivejournal
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assign_submission_reflectivejournal::class)]
 final class plugin_test extends journal_testcase {
     public function test_new_assignments_get_the_default_settings(): void {
         $assign = $this->create_journal_assign();
@@ -201,6 +201,24 @@ final class plugin_test extends journal_testcase {
 
         $this->assertSame(0, $journal->count_entries());
         $this->assertFalse($DB->record_exists(journal::COMMENT_TABLE, ['entry' => $entry->id]));
+    }
+
+    public function test_the_grading_table_shows_each_students_journal_summary(): void {
+        global $PAGE;
+        $assign = $this->create_journal_assign();
+        $this->journal($assign)->save_entry('<p>Week 1</p>', FORMAT_HTML, 'none');
+        $this->wait(journal::EDIT_WINDOW);
+        $this->setUser($this->teacher);
+        $PAGE->set_url(new \moodle_url(
+            '/mod/assign/view.php',
+            ['id' => $assign->get_course_module()->id, 'action' => 'grading']
+        ));
+        $PAGE->set_cm($assign->get_course_module(), $this->course);
+
+        $html = $assign->view('grading');
+
+        $this->assertStringContainsString('1 of 6 entries', $html);
+        $this->assertStringContainsString(get_string('viewjournal', 'assignsubmission_reflectivejournal'), $html);
     }
 
     /**

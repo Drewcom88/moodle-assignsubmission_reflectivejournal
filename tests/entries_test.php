@@ -22,6 +22,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\journal::class)]
 /**
  * Tests for writing Entries in a Journal.
  *
@@ -30,7 +31,6 @@ require_once(__DIR__ . '/journal_testcase.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \assignsubmission_reflectivejournal\local\journal
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\journal::class)]
 final class entries_test extends journal_testcase {
     public function test_student_saves_their_first_entry_as_entry_1(): void {
         $assign = $this->create_journal_assign();

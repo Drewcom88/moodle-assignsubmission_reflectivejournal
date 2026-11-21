@@ -25,6 +25,8 @@ require_once(__DIR__ . '/../journal_testcase.php');
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\backup_assignsubmission_reflectivejournal_subplugin::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\restore_assignsubmission_reflectivejournal_subplugin::class)]
 /**
  * Backup and restore tests for Reflective journal Entries and Comments.
  *
@@ -34,8 +36,6 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * @covers     \backup_assignsubmission_reflectivejournal_subplugin
  * @covers     \restore_assignsubmission_reflectivejournal_subplugin
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\backup_assignsubmission_reflectivejournal_subplugin::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\restore_assignsubmission_reflectivejournal_subplugin::class)]
 final class backup_test extends \assignsubmission_reflectivejournal\journal_testcase {
     public function test_a_course_backup_with_user_data_restores_entries_and_comments(): void {
         $assign = $this->create_journal_assign(['assignsubmission_reflectivejournal_maxentries' => 9]);

@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/../journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\privacy\provider::class)]
 /**
  * Privacy tests for the Reflective journal submission plugin.
  *
@@ -34,7 +35,6 @@ require_once(__DIR__ . '/../journal_testcase.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \assignsubmission_reflectivejournal\privacy\provider
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\privacy\provider::class)]
 final class provider_test extends \assignsubmission_reflectivejournal\journal_testcase {
     /** @var \assign The Assignment. */
     private \assign $assign;

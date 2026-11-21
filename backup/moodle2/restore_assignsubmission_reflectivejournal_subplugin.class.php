@@ -47,8 +47,8 @@ class restore_assignsubmission_reflectivejournal_subplugin extends restore_subpl
         $data->assignment = $this->get_new_parentid('assign');
         $data->submission = $this->get_mappingid('submission', $data->submission);
         $data->userid = $this->get_mappingid('user', $data->userid);
-        $newid = $DB->insert_record('assignsubmission_rjentry', $data);
-        $this->set_mapping('assignsubmission_rjentry', $oldid, $newid);
+        $newid = $DB->insert_record('assignsubmission_reflectivejournal_entry', $data);
+        $this->set_mapping('assignsubmission_reflectivejournal_entry', $oldid, $newid);
     }
 
     /**
@@ -59,8 +59,8 @@ class restore_assignsubmission_reflectivejournal_subplugin extends restore_subpl
     public function process_assignsubmission_reflectivejournal_comment($data) {
         global $DB;
         $data = (object) $data;
-        $data->entry = $this->get_mappingid('assignsubmission_rjentry', $data->entry);
+        $data->entry = $this->get_mappingid('assignsubmission_reflectivejournal_entry', $data->entry);
         $data->userid = $this->get_mappingid('user', $data->userid, 0);
-        $DB->insert_record('assignsubmission_rjcomment', $data);
+        $DB->insert_record('assignsubmission_reflectivejournal_comment', $data);
     }
 }

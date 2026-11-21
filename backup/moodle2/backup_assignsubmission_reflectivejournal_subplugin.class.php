@@ -43,8 +43,12 @@ class backup_assignsubmission_reflectivejournal_subplugin extends backup_subplug
         $entries->add_child($entry);
         $entry->add_child($comment);
 
-        $entry->set_source_table('assignsubmission_rjentry', ['submission' => backup::VAR_PARENTID], 'entrynumber ASC');
-        $comment->set_source_table('assignsubmission_rjcomment', ['entry' => backup::VAR_PARENTID]);
+        $entry->set_source_table(
+            'assignsubmission_reflectivejournal_entry',
+            ['submission' => backup::VAR_PARENTID],
+            'entrynumber ASC'
+        );
+        $comment->set_source_table('assignsubmission_reflectivejournal_comment', ['entry' => backup::VAR_PARENTID]);
         $entry->annotate_ids('user', 'userid');
         $comment->annotate_ids('user', 'userid');
         return $subplugin;

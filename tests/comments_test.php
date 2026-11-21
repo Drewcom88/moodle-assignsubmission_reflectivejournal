@@ -23,6 +23,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\journal::class)]
 /**
  * Tests for Tutor Comments on Entries.
  *
@@ -31,7 +32,6 @@ require_once(__DIR__ . '/journal_testcase.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \assignsubmission_reflectivejournal\local\journal
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\journal::class)]
 final class comments_test extends journal_testcase {
     /** @var \assign The Assignment. */
     private \assign $assign;

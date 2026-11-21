@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="assignsubmission_rjentry" COMMENT="Entries in a Reflective journal">
+    <TABLE NAME="assignsubmission_reflectivejournal_entry" COMMENT="Entries in a Reflective journal">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="assignment" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The assignment this Entry belongs to"/>
@@ -29,11 +29,11 @@
         <INDEX NAME="timelocked" UNIQUE="false" FIELDS="timelocked"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="assignsubmission_rjcomment" COMMENT="Tutor Comments on Reflective journal Entries">
+    <TABLE NAME="assignsubmission_reflectivejournal_comment" COMMENT="Tutor Comments on Reflective journal Entries">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="entry" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The Entry this Comment is about"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The tutor who wrote the Comment; 0 once anonymised"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The tutor who wrote the Comment"/>
         <FIELD NAME="commenttext" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="commentformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
@@ -42,7 +42,7 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="entry" TYPE="foreign-unique" FIELDS="entry" REFTABLE="assignsubmission_rjentry" REFFIELDS="id"/>
+        <KEY NAME="entry" TYPE="foreign-unique" FIELDS="entry" REFTABLE="assignsubmission_reflectivejournal_entry" REFFIELDS="id"/>
         <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>

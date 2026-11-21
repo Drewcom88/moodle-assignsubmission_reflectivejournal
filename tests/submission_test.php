@@ -24,6 +24,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\deadlines::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\task\submit_journals::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\assign_submission_reflectivejournal::class)]
 /**
  * Tests for Journal Submission and reopening a Journal.
  *
@@ -34,9 +37,6 @@ require_once(__DIR__ . '/journal_testcase.php');
  * @covers     \assignsubmission_reflectivejournal\task\submit_journals
  * @covers     \assign_submission_reflectivejournal
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\deadlines::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\task\submit_journals::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\assign_submission_reflectivejournal::class)]
 final class submission_test extends journal_testcase {
     public function test_the_deadline_is_the_latest_of_due_date_cut_off_and_extension(): void {
         $due = self::START + DAYSECS;

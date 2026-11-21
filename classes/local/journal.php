@@ -36,10 +36,10 @@ final class journal {
     public const EDIT_WINDOW = 15 * MINSECS;
 
     /** @var string Entry table. */
-    public const ENTRY_TABLE = 'assignsubmission_rjentry';
+    public const ENTRY_TABLE = 'assignsubmission_reflectivejournal_entry';
 
     /** @var string Comment table. */
-    public const COMMENT_TABLE = 'assignsubmission_rjcomment';
+    public const COMMENT_TABLE = 'assignsubmission_reflectivejournal_comment';
 
     /**
      * Constructor.
@@ -53,6 +53,11 @@ final class journal {
         /** @var stdClass The student's assign_submission record for this attempt. */
         private stdClass $submission,
     ) {
+        global $DB;
+        // Some callers, such as the grading table, pass a partial record without the status.
+        if (!isset($this->submission->status) && !empty($this->submission->id)) {
+            $this->submission = $DB->get_record('assign_submission', ['id' => $this->submission->id], '*', MUST_EXIST);
+        }
     }
 
     /**

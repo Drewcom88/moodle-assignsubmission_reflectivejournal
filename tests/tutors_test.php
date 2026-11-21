@@ -24,6 +24,8 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/journal_testcase.php');
 
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\tutors::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\locker::class)]
 /**
  * Tests for finding a student's Tutor and notifying them when an Entry locks.
  *
@@ -33,8 +35,6 @@ require_once(__DIR__ . '/journal_testcase.php');
  * @covers     \assignsubmission_reflectivejournal\local\tutors
  * @covers     \assignsubmission_reflectivejournal\local\locker
  */
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\tutors::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\assignsubmission_reflectivejournal\local\locker::class)]
 final class tutors_test extends journal_testcase {
     public function test_the_tutor_is_the_allocated_marker(): void {
         $tutor = $this->getDataGenerator()->create_and_enrol($this->course, 'teacher');
