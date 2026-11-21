@@ -28,6 +28,7 @@ Feature: Tutors mark the submitted Journal once
       | Journal | student1 | Week two text  | 60         | 1         |
     When I am on the "Journal" "assign activity" page logged in as teacher1
     And I go to "Student 1" "Journal" activity advanced grading page
+    And I click on "View full" "link"
     Then I should see "Entry 1"
     And I should see "Week one text"
     And I should see "Lovely work"
