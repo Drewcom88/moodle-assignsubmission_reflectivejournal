@@ -40,13 +40,18 @@ class comment_form extends \moodleform {
         $mform->setType('userid', PARAM_INT);
         $mform->addElement('hidden', 'entryid', $entryid);
         $mform->setType('entryid', PARAM_INT);
-        $mform->addElement('editor', 'comment_editor', get_string('addcomment', 'assignsubmission_reflectivejournal'),
-            ['id' => 'id_comment_editor_' . $entryid], [
+        $mform->addElement(
+            'editor',
+            'comment_editor',
+            get_string('addcomment', 'assignsubmission_reflectivejournal'),
+            ['id' => 'id_comment_editor_' . $entryid],
+            [
                 'maxfiles' => 0,
                 'context' => $this->_customdata['context'],
                 'enable_filemanagement' => false,
                 'autosave' => false,
-            ]);
+            ]
+        );
         $mform->setType('comment_editor', PARAM_RAW);
         $mform->addRule('comment_editor', null, 'required', null, 'client');
         $this->add_action_buttons(false, get_string('savechanges'));

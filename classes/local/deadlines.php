@@ -52,17 +52,22 @@ final class deadlines {
     public static function submit_due(int $from, int $to): int {
         global $DB;
         $count = 0;
-        $assignmentids = $DB->get_fieldset_select('assign_plugin_config', 'assignment',
-            "plugin = 'reflectivejournal' AND subtype = 'assignsubmission' AND name = 'enabled' AND value = '1'");
+        $assignmentids = $DB->get_fieldset_select(
+            'assign_plugin_config',
+            'assignment',
+            "plugin = 'reflectivejournal' AND subtype = 'assignsubmission' AND name = 'enabled' AND value = '1'"
+        );
         foreach ($assignmentids as $assignmentid) {
             $cm = get_coursemodule_from_instance('assign', $assignmentid, 0, false, IGNORE_MISSING);
             if (!$cm) {
                 continue;
             }
             $assign = new \assign(\context_module::instance($cm->id), $cm, null);
-            $submissions = $DB->get_records_select('assign_submission',
+            $submissions = $DB->get_records_select(
+                'assign_submission',
                 'assignment = :assignment AND latest = 1 AND userid > 0 AND status <> :submitted',
-                ['assignment' => $assignmentid, 'submitted' => ASSIGN_SUBMISSION_STATUS_SUBMITTED]);
+                ['assignment' => $assignmentid, 'submitted' => ASSIGN_SUBMISSION_STATUS_SUBMITTED]
+            );
             foreach ($submissions as $submission) {
                 $deadline = self::for_user($assign, (int) $submission->userid);
                 if ($deadline <= $from || $deadline > $to) {

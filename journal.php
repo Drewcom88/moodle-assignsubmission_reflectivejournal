@@ -65,10 +65,18 @@ if ($journal) {
         }
         $data = optional_param('entryid', 0, PARAM_INT) === $entry->id ? $form->get_data() : null;
         if ($data) {
-            $journal->save_comment($entry->id, (int) $USER->id, $data->comment_editor['text'],
-                (int) $data->comment_editor['format']);
-            redirect($url, get_string('commentsaved', 'assignsubmission_reflectivejournal'), null,
-                \core\output\notification::NOTIFY_SUCCESS);
+            $journal->save_comment(
+                $entry->id,
+                (int) $USER->id,
+                $data->comment_editor['text'],
+                (int) $data->comment_editor['format']
+            );
+            redirect(
+                $url,
+                get_string('commentsaved', 'assignsubmission_reflectivejournal'),
+                null,
+                \core\output\notification::NOTIFY_SUCCESS
+            );
         }
         $forms[$entry->id] = $form;
     }
@@ -83,18 +91,24 @@ echo $OUTPUT->heading(get_string('journalfor', 'assignsubmission_reflectivejourn
 if (!$journal) {
     echo $OUTPUT->notification(get_string('noentries', 'assignsubmission_reflectivejournal'), 'info');
 } else {
-    echo presenter::journal($journal, (int) $USER->id, false, function($entry) use ($forms, $journal) {
+    echo presenter::journal($journal, (int) $USER->id, false, function ($entry) use ($forms, $journal) {
         if (isset($forms[$entry->id])) {
             return $forms[$entry->id]->render();
         }
         $authorid = $journal->comment_in_progress_by($entry->id);
         if ($authorid && $authorid !== (int) $GLOBALS['USER']->id) {
-            return html_writer::div(get_string('commentinprogress', 'assignsubmission_reflectivejournal',
-                fullname(core_user::get_user($authorid))), 'text-muted small mt-2');
+            return html_writer::div(get_string(
+                'commentinprogress',
+                'assignsubmission_reflectivejournal',
+                fullname(core_user::get_user($authorid))
+            ), 'text-muted small mt-2');
         }
         return '';
     });
 }
-echo html_writer::link(new moodle_url('/mod/assign/view.php', ['id' => $cmid, 'action' => 'grading']),
-    get_string('backtojournal', 'assignsubmission_reflectivejournal'), ['class' => 'btn btn-secondary']);
+echo html_writer::link(
+    new moodle_url('/mod/assign/view.php', ['id' => $cmid, 'action' => 'grading']),
+    get_string('backtojournal', 'assignsubmission_reflectivejournal'),
+    ['class' => 'btn btn-secondary']
+);
 echo $OUTPUT->footer();

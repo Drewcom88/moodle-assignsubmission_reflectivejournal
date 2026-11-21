@@ -40,8 +40,10 @@ final class notifier {
         if (!$student) {
             return;
         }
-        $url = new moodle_url('/mod/assign/submission/reflectivejournal/journal.php',
-            ['id' => $assign->get_course_module()->id, 'userid' => $entry->userid]);
+        $url = new moodle_url(
+            '/mod/assign/submission/reflectivejournal/journal.php',
+            ['id' => $assign->get_course_module()->id, 'userid' => $entry->userid]
+        );
         $studentname = $assign->is_blind_marking()
             ? get_string('hiddenuser', 'assign') . $assign->get_uniqueid_for_user($entry->userid)
             : fullname($student);
@@ -53,8 +55,11 @@ final class notifier {
             $a = (object) [
                 'student' => $studentname,
                 'number' => $entry->entrynumber,
-                'assignment' => format_string($assign->get_instance()->name, true,
-                    ['context' => $assign->get_context()]),
+                'assignment' => format_string(
+                    $assign->get_instance()->name,
+                    true,
+                    ['context' => $assign->get_context()]
+                ),
                 'url' => $url->out(false),
             ];
             self::send('entrylocked', $tutor, $assign, $url, $a, 'notifyentrylocked');
@@ -92,8 +97,14 @@ final class notifier {
      * @param stdClass $a Placeholders for the strings.
      * @param string $stringprefix Prefix of the _subject, _body and _small strings.
      */
-    private static function send(string $name, stdClass $to, \assign $assign, moodle_url $url, stdClass $a,
-            string $stringprefix): void {
+    private static function send(
+        string $name,
+        stdClass $to,
+        \assign $assign,
+        moodle_url $url,
+        stdClass $a,
+        string $stringprefix
+    ): void {
         $component = 'assignsubmission_reflectivejournal';
         $message = new message();
         $message->component = $component;

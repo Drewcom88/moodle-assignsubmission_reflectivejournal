@@ -72,8 +72,10 @@ final class comments_test extends journal_testcase {
         $this->journal->save_comment($this->entryid, (int) $this->tutor->id, 'Good start', FORMAT_HTML);
 
         $this->assertNull($this->student_view()->comment);
-        $this->assertNotNull($this->journal->find_entry($this->entryid, (int) $this->tutor->id)->comment,
-            'The tutor sees their own comment straight away.');
+        $this->assertNotNull(
+            $this->journal->find_entry($this->entryid, (int) $this->tutor->id)->comment,
+            'The tutor sees their own comment straight away.'
+        );
 
         $this->wait(journal::EDIT_WINDOW);
         $this->assertSame('Good start', $this->student_view()->comment->text);
@@ -95,8 +97,10 @@ final class comments_test extends journal_testcase {
     public function test_an_entry_can_have_only_one_comment(): void {
         $this->journal->save_comment($this->entryid, (int) $this->tutor->id, 'Mine', FORMAT_HTML);
 
-        $this->assertFalse($this->journal->can_comment($this->entryid, (int) $this->teacher->id),
-            'Another member of staff cannot add a second comment, even while the first is open.');
+        $this->assertFalse(
+            $this->journal->can_comment($this->entryid, (int) $this->teacher->id),
+            'Another member of staff cannot add a second comment, even while the first is open.'
+        );
         $this->assertSame((int) $this->tutor->id, $this->journal->comment_in_progress_by($this->entryid));
     }
 

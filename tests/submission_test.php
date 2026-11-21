@@ -96,8 +96,10 @@ final class submission_test extends journal_testcase {
 
         deadlines::submit_due(self::START, journal::now());
 
-        $this->assertSame('Last-minute comment',
-            $this->journal($assign)->find_entry($entryid, (int) $this->student->id)->comment->text);
+        $this->assertSame(
+            'Last-minute comment',
+            $this->journal($assign)->find_entry($entryid, (int) $this->student->id)->comment->text
+        );
     }
 
     public function test_after_submission_no_entries_or_comments_can_be_added(): void {

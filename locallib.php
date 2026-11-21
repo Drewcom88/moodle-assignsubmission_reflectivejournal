@@ -27,8 +27,6 @@ use assignsubmission_reflectivejournal\local\presenter;
 use assignsubmission_reflectivejournal\local\settings;
 use assignsubmission_reflectivejournal\local\tutors;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Reflective journal submission plugin.
  *
@@ -153,9 +151,15 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
         $mform->addElement('header', 'reflectivejournal_header', get_string('entry', self::COMPONENT, $number));
         $mform->setExpanded('reflectivejournal_header');
         if ($open) {
-            $mform->addElement('static', 'reflectivejournal_status', '',
-                html_writer::div(get_string('entryeditable', self::COMPONENT, presenter::clock($open->editableuntil)),
-                    'alert alert-info'));
+            $mform->addElement(
+                'static',
+                'reflectivejournal_status',
+                '',
+                html_writer::div(
+                    get_string('entryeditable', self::COMPONENT, presenter::clock($open->editableuntil)),
+                    'alert alert-info'
+                )
+            );
         }
 
         $options = [];
@@ -171,14 +175,26 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
                 continue;
             }
             $name = 'reflectivejournal_prompt_' . $model;
-            $mform->addElement('static', $name, get_string('promptguidance', self::COMPONENT),
-                html_writer::div(get_string('prompt_' . $model, self::COMPONENT), 'rj-prompt border rounded p-2 bg-light',
-                    ['data-model' => $model]));
+            $mform->addElement(
+                'static',
+                $name,
+                get_string('promptguidance', self::COMPONENT),
+                html_writer::div(
+                    get_string('prompt_' . $model, self::COMPONENT),
+                    'rj-prompt border rounded p-2 bg-light',
+                    ['data-model' => $model]
+                )
+            );
             $mform->hideIf($name, 'reflectivejournal_model', 'neq', $model);
         }
 
-        $mform->addElement('editor', 'reflectivejournal_editor', get_string('entrytext', self::COMPONENT), null,
-            $this->editor_options());
+        $mform->addElement(
+            'editor',
+            'reflectivejournal_editor',
+            get_string('entrytext', self::COMPONENT),
+            null,
+            $this->editor_options()
+        );
         $mform->setType('reflectivejournal_editor', PARAM_RAW);
         if ($open) {
             $data->reflectivejournal_editor = ['text' => $open->text, 'format' => $open->format];
@@ -217,8 +233,11 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
         $settings = $this->get_journal_settings();
         $model = $data->reflectivejournal_model ?? $settings->allowedmodels[0];
         try {
-            (new journal($this->assignment, $submission))->save_entry((string) $editor['text'],
-                (int) ($editor['format'] ?? FORMAT_HTML), (string) $model);
+            (new journal($this->assignment, $submission))->save_entry(
+                (string) $editor['text'],
+                (int) ($editor['format'] ?? FORMAT_HTML),
+                (string) $model
+            );
         } catch (moodle_exception $e) {
             $this->set_error($e->getMessage());
             return false;
@@ -259,8 +278,11 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
         $journal = new journal($this->assignment, $submission);
         $count = count($journal->entries_visible_to((int) $USER->id));
         $showviewlink = $count > 0;
-        $summary = get_string('entriescount', self::COMPONENT,
-            (object) ['count' => $count, 'max' => $journal->settings()->maxentries]);
+        $summary = get_string(
+            'entriescount',
+            self::COMPONENT,
+            (object) ['count' => $count, 'max' => $journal->settings()->maxentries]
+        );
         return $summary . $this->journal_link($journal);
     }
 
@@ -287,8 +309,10 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
         if ($journal->is_submitted() || !tutors::can_view($this->assignment, $journal->get_studentid(), (int) $USER->id)) {
             return '';
         }
-        $url = new moodle_url('/mod/assign/submission/reflectivejournal/journal.php',
-            ['id' => $this->assignment->get_course_module()->id, 'userid' => $journal->get_studentid()]);
+        $url = new moodle_url(
+            '/mod/assign/submission/reflectivejournal/journal.php',
+            ['id' => $this->assignment->get_course_module()->id, 'userid' => $journal->get_studentid()]
+        );
         return html_writer::div(html_writer::link($url, get_string('viewjournal', self::COMPONENT)), 'mt-1');
     }
 

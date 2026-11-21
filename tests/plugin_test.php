@@ -62,6 +62,8 @@ final class plugin_test extends journal_testcase {
     }
 
     /**
+     * The Assignment form refuses each invalid setting.
+     *
      * @dataProvider invalid_settings_provider
      * @param array $override Form data that breaks a rule.
      * @param string $field The field that should get the error.
@@ -82,9 +84,14 @@ final class plugin_test extends journal_testcase {
         require_once($CFG->dirroot . '/mod/assign/submission/reflectivejournal/lib.php');
 
         $this->assertSame([], assignsubmission_reflectivejournal_coursemodule_validation(null, $this->valid_form_data()));
-        $this->assertSame([], assignsubmission_reflectivejournal_coursemodule_validation(null,
-            ['assignsubmission_reflectivejournal_enabled' => 0, 'duedate' => 0] + $this->valid_form_data()),
-            'Nothing is checked when the Reflective journal is off.');
+        $this->assertSame(
+            [],
+            assignsubmission_reflectivejournal_coursemodule_validation(
+                null,
+                ['assignsubmission_reflectivejournal_enabled' => 0, 'duedate' => 0] + $this->valid_form_data()
+            ),
+            'Nothing is checked when the Reflective journal is off.'
+        );
     }
 
     public function test_a_student_saving_the_assignment_form_creates_an_entry(): void {
@@ -97,8 +104,11 @@ final class plugin_test extends journal_testcase {
         $entries = $this->journal($assign)->entries_visible_to((int) $this->student->id);
         $this->assertSame('<p>Week 1</p>', $entries[0]->text);
         $this->assertSame('driscoll', $entries[0]->model);
-        $this->assertSame(ASSIGN_SUBMISSION_STATUS_DRAFT, $this->journal($assign)->get_submission()->status,
-            'Saving an entry never submits the whole journal.');
+        $this->assertSame(
+            ASSIGN_SUBMISSION_STATUS_DRAFT,
+            $this->journal($assign)->get_submission()->status,
+            'Saving an entry never submits the whole journal.'
+        );
     }
 
     public function test_the_edit_form_offers_the_open_entry_with_its_deadline(): void {
@@ -108,8 +118,11 @@ final class plugin_test extends journal_testcase {
 
         $html = $this->render_edit_form($assign);
 
-        $this->assertStringContainsString(get_string('entryeditable', 'assignsubmission_reflectivejournal',
-            userdate(self::START + journal::EDIT_WINDOW, get_string('strftimetime', 'langconfig'))), $html);
+        $this->assertStringContainsString(get_string(
+            'entryeditable',
+            'assignsubmission_reflectivejournal',
+            userdate(self::START + journal::EDIT_WINDOW, get_string('strftimetime', 'langconfig'))
+        ), $html);
         $this->assertStringContainsString('Draft', $html);
         $this->assertStringContainsString('Entry 1', $html);
     }
@@ -169,8 +182,10 @@ final class plugin_test extends journal_testcase {
         $this->setUser($this->teacher);
         $html = $plugin->view($journal->get_submission());
 
-        $this->assertMatchesRegularExpression('/Entry 1.*Week one text.*Tutor thoughts.*Entry 2.*Week two text.*No comment/s',
-            $html);
+        $this->assertMatchesRegularExpression(
+            '/Entry 1.*Week one text.*Tutor thoughts.*Entry 2.*Week two text.*No comment/s',
+            $html
+        );
         $this->assertStringContainsString(userdate(self::START, get_string('strftimedatetime', 'langconfig')), $html);
     }
 

@@ -289,13 +289,17 @@ final class journal {
     public function lock_open_items(): void {
         global $DB;
         $now = self::now();
-        $entries = $DB->get_records_select(self::ENTRY_TABLE, 'submission = ? AND timelocked IS NULL',
-            [$this->submission->id]);
+        $entries = $DB->get_records_select(
+            self::ENTRY_TABLE,
+            'submission = ? AND timelocked IS NULL',
+            [$this->submission->id]
+        );
         foreach ($entries as $record) {
             locker::lock_entry($this->assign, $record, $now);
         }
         [$insql, $params] = $DB->get_in_or_equal(
-            array_keys($DB->get_records(self::ENTRY_TABLE, ['submission' => $this->submission->id], '', 'id')) ?: [0]);
+            array_keys($DB->get_records(self::ENTRY_TABLE, ['submission' => $this->submission->id], '', 'id')) ?: [0]
+        );
         $comments = $DB->get_records_select(self::COMMENT_TABLE, "entry $insql AND timelocked IS NULL", $params);
         foreach ($comments as $record) {
             locker::lock_comment($this->assign, $record, $now);
@@ -395,9 +399,18 @@ final class journal {
      * @return entry
      */
     private static function make_entry(stdClass $r, ?comment $comment): entry {
-        return new entry((int) $r->id, (int) $r->entrynumber, (int) $r->userid, $r->model, (string) $r->entrytext,
-            (int) $r->entryformat, (int) $r->timemodified, self::is_locked($r),
-            (int) $r->timemodified + self::EDIT_WINDOW, $comment);
+        return new entry(
+            (int) $r->id,
+            (int) $r->entrynumber,
+            (int) $r->userid,
+            $r->model,
+            (string) $r->entrytext,
+            (int) $r->entryformat,
+            (int) $r->timemodified,
+            self::is_locked($r),
+            (int) $r->timemodified + self::EDIT_WINDOW,
+            $comment
+        );
     }
 
     /**
@@ -407,9 +420,16 @@ final class journal {
      * @return comment
      */
     private static function make_comment(stdClass $r): comment {
-        return new comment((int) $r->id, (int) $r->entry, (int) $r->userid, (string) $r->commenttext,
-            (int) $r->commentformat, (int) $r->timemodified, self::is_locked($r),
-            (int) $r->timemodified + self::EDIT_WINDOW);
+        return new comment(
+            (int) $r->id,
+            (int) $r->entry,
+            (int) $r->userid,
+            (string) $r->commenttext,
+            (int) $r->commentformat,
+            (int) $r->timemodified,
+            self::is_locked($r),
+            (int) $r->timemodified + self::EDIT_WINDOW
+        );
     }
 
     /**
@@ -420,7 +440,17 @@ final class journal {
      * @return entry
      */
     private function with_comment(entry $e, ?comment $comment): entry {
-        return new entry($e->id, $e->number, $e->authorid, $e->model, $e->text, $e->format, $e->timemodified,
-            $e->locked, $e->editableuntil, $comment);
+        return new entry(
+            $e->id,
+            $e->number,
+            $e->authorid,
+            $e->model,
+            $e->text,
+            $e->format,
+            $e->timemodified,
+            $e->locked,
+            $e->editableuntil,
+            $comment
+        );
     }
 }

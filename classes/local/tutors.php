@@ -122,8 +122,11 @@ final class tutors {
             return array_values(array_map(fn($r) => (int) $r->marker, $records));
         }
         // Moodle 4.5: one marker per student.
-        $marker = $DB->get_field('assign_user_flags', 'allocatedmarker',
-            ['assignment' => $assignmentid, 'userid' => $studentid]);
+        $marker = $DB->get_field(
+            'assign_user_flags',
+            'allocatedmarker',
+            ['assignment' => $assignmentid, 'userid' => $studentid]
+        );
         return $marker ? [(int) $marker] : [];
     }
 

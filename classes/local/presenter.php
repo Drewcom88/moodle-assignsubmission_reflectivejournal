@@ -38,8 +38,12 @@ final class presenter {
      * @param callable|null $aftereach Called with each entry; may return extra HTML to show under it.
      * @return string
      */
-    public static function journal(journal $journal, int $viewerid, bool $includeopen = true,
-            ?callable $aftereach = null): string {
+    public static function journal(
+        journal $journal,
+        int $viewerid,
+        bool $includeopen = true,
+        ?callable $aftereach = null
+    ): string {
         $context = $journal->get_assign()->get_context();
         $html = '';
         foreach ($journal->entries_visible_to($viewerid) as $entry) {
@@ -64,11 +68,15 @@ final class presenter {
      */
     public static function entry(entry $entry, \context $context, string $extra = ''): string {
         $html = html_writer::tag('h4', get_string('entry', self::COMPONENT, $entry->number), ['class' => 'h5']);
-        $html .= html_writer::div(get_string('entrysaved', self::COMPONENT, self::time($entry->timemodified)),
-            'text-muted small mb-2');
+        $html .= html_writer::div(
+            get_string('entrysaved', self::COMPONENT, self::time($entry->timemodified)),
+            'text-muted small mb-2'
+        );
         if (!$entry->locked) {
-            $html .= html_writer::div(get_string('entryeditable', self::COMPONENT, self::clock($entry->editableuntil)),
-                'alert alert-info');
+            $html .= html_writer::div(
+                get_string('entryeditable', self::COMPONENT, self::clock($entry->editableuntil)),
+                'alert alert-info'
+            );
         }
         $html .= html_writer::div(format_text($entry->text, $entry->format, ['context' => $context]), 'rj-entry-text');
         if ($entry->locked) {
@@ -96,8 +104,10 @@ final class presenter {
         ];
         $html = html_writer::div(get_string('commentby', self::COMPONENT, $a), 'small fw-bold');
         if (!$comment->locked) {
-            $html .= html_writer::div(get_string('commenteditable', self::COMPONENT, self::clock($comment->editableuntil)),
-                'alert alert-info');
+            $html .= html_writer::div(
+                get_string('commenteditable', self::COMPONENT, self::clock($comment->editableuntil)),
+                'alert alert-info'
+            );
         }
         $html .= format_text($comment->text, $comment->format, ['context' => $context]);
         return html_writer::div($html, 'rj-comment bg-light border-start border-3 p-2 mt-2');

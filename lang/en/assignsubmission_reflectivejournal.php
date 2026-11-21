@@ -47,8 +47,8 @@ $string['errorentrynotallowed'] = 'No more entries can be added to this journal.
 $string['errormaxentries'] = 'The maximum number of entries must be between 1 and {$a}.';
 $string['errormodel'] = 'Choose one of the allowed reflective models.';
 $string['errornomodels'] = 'Allow at least one reflective model.';
-$string['errorrequiresduedate'] = 'A Reflective journal needs a due date, because the journal is submitted automatically at the deadline.';
 $string['errorrequiresdrafts'] = 'A Reflective journal needs "Require students to click the submit button" set to Yes, so that saving an entry does not submit the whole journal.';
+$string['errorrequiresduedate'] = 'A Reflective journal needs a due date, because the journal is submitted automatically at the deadline.';
 $string['errorteamsubmission'] = 'A Reflective journal cannot be used with group submissions.';
 $string['journalfor'] = 'Reflective journal: {$a}';
 $string['maxentries'] = 'Maximum number of entries';
@@ -85,7 +85,6 @@ $string['privacy:metadata:entry:timemodified'] = 'The time the entry was last sa
 $string['privacy:metadata:entry:userid'] = 'The student who wrote the entry.';
 $string['privacy:metadata:messages'] = 'Notifications sent when entries and comments are shared.';
 $string['privacy:path'] = 'Reflective journal';
-$string['promptguidance'] = 'Reflective prompt';
 $string['prompt_driscoll'] = '<p><strong>What?</strong> Describe what happened. What did you see, do and hear? What was your role?</p>
 <p><strong>So what?</strong> What did it mean to you? What did you learn, and why does it matter?</p>
 <p><strong>Now what?</strong> What will you do differently next time? What do you need to learn or practise?</p>';
@@ -99,6 +98,7 @@ $string['prompt_kolb'] = '<p><strong>Concrete experience:</strong> What did you 
 <p><strong>Reflective observation:</strong> Looking back, what did you notice? How did it go?</p>
 <p><strong>Abstract conceptualisation:</strong> What do you now understand? How does it connect to theory or ideas you know?</p>
 <p><strong>Active experimentation:</strong> How will you apply what you have learned? What will you try next time?</p>';
+$string['promptguidance'] = 'Reflective prompt';
 $string['submissionmode'] = 'Submission';
 $string['submissionmode_button'] = 'At the deadline, or earlier when the student clicks "Submit assignment"';
 $string['submissionmode_deadline'] = 'Automatically at the deadline only';

@@ -41,8 +41,12 @@ final class locker {
         $count = 0;
         $assigns = [];
 
-        $entries = $DB->get_records_select(journal::ENTRY_TABLE, 'timelocked IS NULL AND timemodified <= ?',
-            [$cutoff], 'id ASC');
+        $entries = $DB->get_records_select(
+            journal::ENTRY_TABLE,
+            'timelocked IS NULL AND timemodified <= ?',
+            [$cutoff],
+            'id ASC'
+        );
         foreach ($entries as $entry) {
             $assign = self::assign_for($entry->assignment, $assigns);
             if ($assign) {
@@ -93,8 +97,13 @@ final class locker {
      */
     public static function lock_comment(\assign $assign, stdClass $comment, int $time): void {
         global $DB;
-        $DB->set_field_select(journal::COMMENT_TABLE, 'timelocked', $time, 'id = ? AND timelocked IS NULL',
-            [$comment->id]);
+        $DB->set_field_select(
+            journal::COMMENT_TABLE,
+            'timelocked',
+            $time,
+            'id = ? AND timelocked IS NULL',
+            [$comment->id]
+        );
         if ($DB->get_field(journal::COMMENT_TABLE, 'timelocked', ['id' => $comment->id]) != $time) {
             return;
         }

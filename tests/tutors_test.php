@@ -136,8 +136,12 @@ final class tutors_test extends journal_testcase {
     private function reallocate(\assign $assign, \stdClass $student, \stdClass $marker): void {
         global $DB;
         if ($DB->get_manager()->table_exists('assign_allocated_marker')) {
-            $DB->set_field('assign_allocated_marker', 'marker', $marker->id,
-                ['assignment' => $assign->get_instance()->id, 'student' => $student->id]);
+            $DB->set_field(
+                'assign_allocated_marker',
+                'marker',
+                $marker->id,
+                ['assignment' => $assign->get_instance()->id, 'student' => $student->id]
+            );
             return;
         }
         $this->allocate($assign, $student, $marker);
