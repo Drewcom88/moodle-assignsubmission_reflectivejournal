@@ -4,6 +4,7 @@ Feature: Tutors mark the submitted Journal once
   As a tutor
   I need to see every Entry and its Comment on the marking screen
 
+  @javascript
   Scenario: The marking screen shows each Entry with its Comment
     Given the following "courses" exist:
       | fullname | shortname |
