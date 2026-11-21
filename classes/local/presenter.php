@@ -130,6 +130,6 @@ final class presenter {
      * @return string
      */
     public static function clock(int $time): string {
-        return userdate($time, get_string('strftimetime', 'langconfig'));
+        return userdate($time, get_string('strftimetime24', 'langconfig'));
     }
 }

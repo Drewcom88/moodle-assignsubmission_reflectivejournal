@@ -121,7 +121,7 @@ final class plugin_test extends journal_testcase {
         $this->assertStringContainsString(get_string(
             'entryeditable',
             'assignsubmission_reflectivejournal',
-            userdate(self::START + journal::EDIT_WINDOW, get_string('strftimetime', 'langconfig'))
+            userdate(self::START + journal::EDIT_WINDOW, '%H:%M')
         ), $html);
         $this->assertStringContainsString('Draft', $html);
         $this->assertStringContainsString('Entry 1', $html);

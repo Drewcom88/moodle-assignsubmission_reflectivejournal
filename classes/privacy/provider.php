@@ -33,7 +33,7 @@ require_once($CFG->dirroot . '/mod/assign/submission/reflectivejournal/locallib.
  *
  * Students' Entries (and the Comments on them) are exported and deleted with their submissions.
  * Tutors' Comments are exported as part of the tutor's own data. As in core Assignment, deleting a
- * tutor's data does not remove feedback they gave to students.
+ * tutor's data does not remove the Comments they wrote for students.
  *
  * @package    assignsubmission_reflectivejournal
  * @copyright  2026 Drewcom88

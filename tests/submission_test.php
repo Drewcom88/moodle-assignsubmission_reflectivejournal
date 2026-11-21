@@ -168,8 +168,8 @@ final class submission_test extends journal_testcase {
         deadlines::submit_due(self::START, journal::now());
         $this->setAdminUser();
 
-        $assign->revert_to_draft($this->student->id);
         $assign->save_user_extension($this->student->id, journal::now() + DAYSECS);
+        $this->assertFalse($this->journal($assign)->is_submitted(), 'The new extension reopens the journal.');
         $this->assertSame(0, deadlines::submit_due(journal::now(), journal::now() + HOURSECS));
 
         $this->assertSame(1, deadlines::submit_due(journal::now(), journal::now() + DAYSECS));
