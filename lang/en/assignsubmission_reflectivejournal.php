@@ -27,12 +27,17 @@ defined('MOODLE_INTERNAL') || die();
 $string['addcomment'] = 'Comment on this entry';
 $string['allowedmodels'] = 'Allowed reflective models';
 $string['allowedmodels_help'] = 'The reflective models students can choose from for each entry. The guidance for the chosen model is shown while the student writes.';
-$string['backtojournal'] = 'Back to the assignment';
+$string['backtoassignment'] = 'Back to the assignment';
+$string['backtooverview'] = 'Back to all journals';
+$string['colawaiting'] = 'Waiting for a comment';
+$string['colentries'] = 'Entries';
+$string['colstatus'] = 'Status';
 $string['comment'] = 'Tutor comment';
 $string['commentby'] = 'Comment from {$a->name}, {$a->date}';
 $string['commenteditable'] = 'Saved. You can edit this comment until {$a}. After that, it will be shared with the student and locked.';
 $string['commentinprogress'] = 'A comment on this entry is being written by {$a}.';
 $string['commentsaved'] = 'Comment saved.';
+$string['commentsclosed'] = 'This journal has been submitted, so no more comments can be added.';
 $string['default'] = 'Enabled by default';
 $string['default_help'] = 'If set, this submission method will be enabled by default for all new assignments.';
 $string['enabled'] = 'Reflective journal';
@@ -63,6 +68,7 @@ $string['model_kolb'] = 'Kolb';
 $string['model_none'] = 'None';
 $string['nocomment'] = 'No comment';
 $string['noentries'] = 'No entries yet.';
+$string['nostudents'] = 'There are no students to show.';
 $string['notifycommentlocked_body'] = 'Your tutor has commented on Entry {$a->number} of your reflective journal in "{$a->assignment}".
 
 Read the comment: {$a->url}';
@@ -99,6 +105,9 @@ $string['prompt_kolb'] = '<p><strong>Concrete experience:</strong> What did you 
 <p><strong>Abstract conceptualisation:</strong> What do you now understand? How does it connect to theory or ideas you know?</p>
 <p><strong>Active experimentation:</strong> How will you apply what you have learned? What will you try next time?</p>';
 $string['promptguidance'] = 'Reflective prompt';
+$string['statusinprogress'] = 'In progress';
+$string['statussubmitted'] = 'Submitted';
+$string['student'] = 'Student';
 $string['submissionmode'] = 'Submission';
 $string['submissionmode_button'] = 'At the deadline, or earlier when the student clicks "Submit assignment"';
 $string['submissionmode_deadline'] = 'Automatically at the deadline only';
@@ -107,3 +116,4 @@ $string['submitatdeadline'] = 'This journal is submitted automatically at the de
 $string['task_lockitems'] = 'Lock reflective journal entries and comments';
 $string['task_submitjournals'] = 'Submit reflective journals at the deadline';
 $string['viewjournal'] = 'View journal';
+$string['viewjournals'] = 'Reflective journals';

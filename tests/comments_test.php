@@ -124,6 +124,22 @@ final class comments_test extends journal_testcase {
         $this->journal->save_comment($this->entryid, (int) $other->id, 'Not mine', FORMAT_HTML);
     }
 
+    public function test_entries_waiting_for_a_comment_are_locked_entries_without_a_locked_comment(): void {
+        $this->assertSame(1, $this->journal->count_awaiting_comment());
+
+        $this->journal->save_entry('Week 2', FORMAT_HTML, 'none');
+        $this->assertSame(1, $this->journal->count_awaiting_comment(), 'Entry 2 is still in its Edit Window.');
+
+        $this->wait(journal::EDIT_WINDOW);
+        $this->assertSame(2, $this->journal->count_awaiting_comment());
+
+        $this->journal->save_comment($this->entryid, (int) $this->tutor->id, 'Good start', FORMAT_HTML);
+        $this->assertSame(2, $this->journal->count_awaiting_comment(), 'A comment still being written does not count.');
+
+        $this->wait(journal::EDIT_WINDOW);
+        $this->assertSame(1, $this->journal->count_awaiting_comment());
+    }
+
     /**
      * Entry 1 as the student sees it.
      *

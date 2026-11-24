@@ -17,9 +17,11 @@ Supports Moodle 4.5 LTS and 5.3 LTS.
   so a site admin can change it through Moodle's language customisation.
 - **Tutor Comments.** The Tutor is the student's allocated marker (marking workflow plus marker allocation).
   With several markers on Moodle 5.3 it is the first one. With no marker allocated, anyone who can grade acts
-  as the Tutor. Editing teachers and managers can always cover. The Tutor opens the student's Journal from the
-  submissions list ("View journal") and writes one Comment per Locked Entry. The Comment has its own 15-minute
-  Edit Window, then the student is notified and can read it but not reply.
+  as the Tutor. Editing teachers and managers can always cover. On the Assignment page, staff click
+  **Reflective journals** to see their students, how many Entries each has written and how many are waiting for
+  a Comment. Opening a student's journal shows each Entry with a comment box directly underneath (the
+  Submissions table also links to it). The Tutor writes one Comment per Locked Entry. The Comment has its own
+  15-minute Edit Window, then the student is notified and sees it under their Entry, without being able to reply.
 - **Journal Submission.** The Journal is submitted automatically at the latest of the due date, the cut-off
   date and the student's extension. If the teacher allows it, the student can also submit early with the
   Assignment's "Submit assignment" button. Anything still in an Edit Window is locked and kept.

@@ -299,6 +299,25 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
     }
 
     /**
+     * On the Assignment page, give staff a button to the overview of their students' Journals.
+     *
+     * @return string
+     */
+    public function view_header() {
+        if (!has_capability('mod/assign:grade', $this->assignment->get_context())) {
+            return '';
+        }
+        $url = new moodle_url(
+            '/mod/assign/submission/reflectivejournal/journals.php',
+            ['id' => $this->assignment->get_course_module()->id]
+        );
+        return html_writer::div(
+            html_writer::link($url, get_string('viewjournals', self::COMPONENT), ['class' => 'btn btn-primary']),
+            'mb-3'
+        );
+    }
+
+    /**
      * Link from the submissions list to the student's Journal page, where Tutors write Comments.
      *
      * @param journal $journal The Journal.
@@ -306,7 +325,7 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
      */
     private function journal_link(journal $journal): string {
         global $USER;
-        if ($journal->is_submitted() || !tutors::can_view($this->assignment, $journal->get_studentid(), (int) $USER->id)) {
+        if (!tutors::can_view($this->assignment, $journal->get_studentid(), (int) $USER->id)) {
             return '';
         }
         $url = new moodle_url(

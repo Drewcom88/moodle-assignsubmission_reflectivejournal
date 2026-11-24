@@ -60,16 +60,17 @@ if ($journal) {
         $form = new comment_form($url, [
             'cmid' => $cmid, 'userid' => $userid, 'entryid' => $entry->id, 'context' => $context,
         ], 'post', '', ['id' => 'rj-comment-' . $entry->id]);
+        $field = comment_form::field($entry->id);
         if ($entry->comment) {
-            $form->set_data(['comment_editor' => ['text' => $entry->comment->text, 'format' => $entry->comment->format]]);
+            $form->set_data([$field => ['text' => $entry->comment->text, 'format' => $entry->comment->format]]);
         }
         $data = optional_param('entryid', 0, PARAM_INT) === $entry->id ? $form->get_data() : null;
         if ($data) {
             $journal->save_comment(
                 $entry->id,
                 (int) $USER->id,
-                $data->comment_editor['text'],
-                (int) $data->comment_editor['format']
+                $data->{$field}['text'],
+                (int) $data->{$field}['format']
             );
             redirect(
                 $url,
@@ -91,6 +92,9 @@ echo $OUTPUT->heading(get_string('journalfor', 'assignsubmission_reflectivejourn
 if (!$journal) {
     echo $OUTPUT->notification(get_string('noentries', 'assignsubmission_reflectivejournal'), 'info');
 } else {
+    if ($journal->is_submitted()) {
+        echo $OUTPUT->notification(get_string('commentsclosed', 'assignsubmission_reflectivejournal'), 'info');
+    }
     echo presenter::journal($journal, (int) $USER->id, false, function ($entry) use ($forms, $journal) {
         if (isset($forms[$entry->id])) {
             return $forms[$entry->id]->render();
@@ -107,8 +111,8 @@ if (!$journal) {
     });
 }
 echo html_writer::link(
-    new moodle_url('/mod/assign/view.php', ['id' => $cmid, 'action' => 'grading']),
-    get_string('backtojournal', 'assignsubmission_reflectivejournal'),
+    new moodle_url('/mod/assign/submission/reflectivejournal/journals.php', ['id' => $cmid]),
+    get_string('backtooverview', 'assignsubmission_reflectivejournal'),
     ['class' => 'btn btn-secondary']
 );
 echo $OUTPUT->footer();

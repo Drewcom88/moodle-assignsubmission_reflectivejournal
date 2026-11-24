@@ -221,6 +221,27 @@ final class plugin_test extends journal_testcase {
         $this->assertStringContainsString(get_string('viewjournal', 'assignsubmission_reflectivejournal'), $html);
     }
 
+    public function test_staff_get_a_link_to_the_journal_overview_on_the_assignment_page(): void {
+        $assign = $this->create_journal_assign();
+        $plugin = $assign->get_submission_plugin_by_type('reflectivejournal');
+
+        $this->setUser($this->teacher);
+        $html = $plugin->view_header();
+
+        $this->assertStringContainsString(get_string('viewjournals', 'assignsubmission_reflectivejournal'), $html);
+        $this->assertStringContainsString('/mod/assign/submission/reflectivejournal/journals.php?id=' .
+            $assign->get_course_module()->id, $html);
+    }
+
+    public function test_students_do_not_get_the_journal_overview_link(): void {
+        $assign = $this->create_journal_assign();
+        $plugin = $assign->get_submission_plugin_by_type('reflectivejournal');
+
+        $this->setUser($this->student);
+
+        $this->assertSame('', $plugin->view_header());
+    }
+
     /**
      * Form data for an Assignment with the Reflective journal turned on and valid settings.
      *

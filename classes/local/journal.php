@@ -154,6 +154,16 @@ final class journal {
     }
 
     /**
+     * Number of Locked Entries that have no Locked Comment yet: the ones waiting for the Tutor.
+     *
+     * @return int
+     */
+    public function count_awaiting_comment(): int {
+        $waiting = array_filter($this->load_entries(), fn(entry $e) => $e->locked && !($e->comment && $e->comment->locked));
+        return count($waiting);
+    }
+
+    /**
      * The Entry still in its Edit Window, if any.
      *
      * @return entry|null

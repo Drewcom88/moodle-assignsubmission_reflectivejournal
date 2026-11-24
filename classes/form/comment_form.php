@@ -29,6 +29,17 @@ require_once($CFG->libdir . '/formslib.php');
  */
 class comment_form extends \moodleform {
     /**
+     * The editor's field name for an Entry. Each Entry's form uses its own name, so that several
+     * editors on one page each get their own element id.
+     *
+     * @param int $entryid The Entry.
+     * @return string
+     */
+    public static function field(int $entryid): string {
+        return 'comment_editor_' . $entryid;
+    }
+
+    /**
      * Form definition.
      */
     protected function definition() {
@@ -42,9 +53,9 @@ class comment_form extends \moodleform {
         $mform->setType('entryid', PARAM_INT);
         $mform->addElement(
             'editor',
-            'comment_editor',
+            self::field($entryid),
             get_string('addcomment', 'assignsubmission_reflectivejournal'),
-            ['id' => 'id_comment_editor_' . $entryid],
+            null,
             [
                 'maxfiles' => 0,
                 'context' => $this->_customdata['context'],
@@ -52,8 +63,8 @@ class comment_form extends \moodleform {
                 'autosave' => false,
             ]
         );
-        $mform->setType('comment_editor', PARAM_RAW);
-        $mform->addRule('comment_editor', null, 'required', null, 'client');
+        $mform->setType(self::field($entryid), PARAM_RAW);
+        $mform->addRule(self::field($entryid), null, 'required', null, 'client');
         $this->add_action_buttons(false, get_string('savechanges'));
     }
 }

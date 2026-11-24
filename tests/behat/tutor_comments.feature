@@ -23,15 +23,31 @@ Feature: Tutors comment on Locked Entries
       | assign  | user     | text                  | minutesago |
       | Journal | student1 | My first reflection   | 60         |
 
-  Scenario: A tutor comments on an Entry and can edit it during the Edit Window
-    Given I am on the "Journal" "assign activity" page logged in as teacher1
-    And I navigate to "Submissions" in current page administration
-    When I click on "View journal" "link" in the "Student 1" "table_row"
-    Then I should see "My first reflection"
-    And I set the field "Comment on this entry" to "A thoughtful start."
-    And I press "Save changes"
+  Scenario: A tutor finds their students from the assignment page and comments under each Entry
+    Given the following "assignsubmission_reflectivejournal > entries" exist:
+      | assign  | user     | text                | minutesago |
+      | Journal | student1 | My second reflection | 30        |
+    And I am on the "Journal" "assign activity" page logged in as teacher1
+    When I click on "Reflective journals" "link"
+    Then I should see "2 of 6 entries" in the "Student 1" "table_row"
+    And I click on "View journal" "link" in the "Student 1" "table_row"
+    And I should see "My first reflection" in the "[data-entry='1']" "css_element"
+    And I should see "My second reflection" in the "[data-entry='2']" "css_element"
+    And I set the field "Comment on this entry" in the "[data-entry='2']" "css_element" to "Good progress this week."
+    And I click on "Save changes" "button" in the "[data-entry='2']" "css_element"
     And I should see "Comment saved."
-    And I should see "Saved. You can edit this comment until"
+    And I should see "Good progress this week." in the "[data-entry='2']" "css_element"
+    And I should see "Saved. You can edit this comment until" in the "[data-entry='2']" "css_element"
+    And "Comment on this entry" "field" should exist in the "[data-entry='1']" "css_element"
+    And I set the field "Comment on this entry" in the "[data-entry='1']" "css_element" to "A thoughtful start."
+    And I click on "Save changes" "button" in the "[data-entry='1']" "css_element"
+    And I should see "A thoughtful start." in the "[data-entry='1']" "css_element"
+    And I click on "Back to all journals" "link"
+    And I should see "Reflective journals: Journal"
+
+  Scenario: Students do not see the tutor overview button
+    When I am on the "Journal" "assign activity" page logged in as student1
+    Then I should not see "Reflective journals"
 
   Scenario: The student sees a Locked Comment but cannot reply
     Given the following "assignsubmission_reflectivejournal > entries" exist:
