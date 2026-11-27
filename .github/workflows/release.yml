@@ -1,0 +1,24 @@
+name: Release ZIP
+
+# Tag a commit (for example v1.0.0) to build a ZIP that installs through Moodle's plugin installer
+# and attach it to a GitHub release. The ZIP's top folder must be named after the plugin.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the plugin ZIP
+        run: git archive --format=zip --prefix=reflectivejournal/ -o assignsubmission_reflectivejournal.zip HEAD
+
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" assignsubmission_reflectivejournal.zip --title "$GITHUB_REF_NAME" --generate-notes

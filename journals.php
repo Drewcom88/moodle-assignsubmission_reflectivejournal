@@ -38,12 +38,13 @@ $assign = new assign($context, $cm, $course);
 $component = 'assignsubmission_reflectivejournal';
 $url = new moodle_url('/mod/assign/submission/reflectivejournal/journals.php', ['id' => $cmid]);
 $PAGE->set_url($url);
-$PAGE->set_title(get_string('viewjournals', $component) . ': ' . format_string($assign->get_instance()->name));
+$assignname = format_string($assign->get_instance()->name, true, ['context' => $context]);
+$PAGE->set_title(get_string('overviewheading', $component, $assignname));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->activityheader->disable();
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('viewjournals', $component) . ': ' . format_string($assign->get_instance()->name));
+echo $OUTPUT->heading(get_string('overviewheading', $component, $assignname));
 
 groups_print_activity_menu($cm, $url);
 $groupid = (int) groups_get_activity_group($cm, true);
