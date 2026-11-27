@@ -140,6 +140,21 @@ final class comments_test extends journal_testcase {
         $this->assertSame(1, $this->journal->count_awaiting_comment());
     }
 
+    public function test_no_comment_is_not_shown_where_a_comment_box_is_offered(): void {
+        $nocomment = get_string('nocomment', 'assignsubmission_reflectivejournal');
+
+        $withbox = \assignsubmission_reflectivejournal\local\presenter::journal(
+            $this->journal,
+            (int) $this->tutor->id,
+            false,
+            fn() => '<form>comment box</form>'
+        );
+        $readonly = \assignsubmission_reflectivejournal\local\presenter::journal($this->journal, (int) $this->tutor->id);
+
+        $this->assertStringNotContainsString($nocomment, $withbox);
+        $this->assertStringContainsString($nocomment, $readonly);
+    }
+
     /**
      * Entry 1 as the student sees it.
      *

@@ -79,7 +79,8 @@ final class presenter {
             );
         }
         $html .= html_writer::div(format_text($entry->text, $entry->format, ['context' => $context]), 'rj-entry-text');
-        if ($entry->locked) {
+        // Show "No comment" only when nothing else, such as a comment box, is shown in its place.
+        if ($entry->locked && ($entry->comment || $extra === '')) {
             $html .= self::comment($entry->comment, $context);
         }
         $html .= $extra;
