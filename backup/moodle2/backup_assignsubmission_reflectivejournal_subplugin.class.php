@@ -18,7 +18,7 @@
  * Backup of Reflective journal Entries and Comments.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_assignsubmission_reflectivejournal_subplugin extends backup_subplugin {

@@ -20,7 +20,7 @@ namespace assignsubmission_reflectivejournal\local;
  * The teacher's settings for one Reflective journal Assignment.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class settings {

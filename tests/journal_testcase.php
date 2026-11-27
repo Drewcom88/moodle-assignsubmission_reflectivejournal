@@ -28,7 +28,7 @@ require_once($CFG->dirroot . '/mod/assign/tests/generator.php');
  * Shared set-up for Reflective journal tests.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class journal_testcase extends \advanced_testcase {
