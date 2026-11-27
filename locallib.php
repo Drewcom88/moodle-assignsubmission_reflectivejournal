@@ -354,6 +354,13 @@ class assign_submission_reflectivejournal extends assign_submission_plugin {
      * @param stdClass $submission The submission.
      */
     public function submit_for_grading($submission) {
+        global $USER;
+        // The Assignment page checks precheck_submission(), but the web service (and so the Moodle
+        // app) does not. In deadline-only mode the student must not be able to submit early by any
+        // route; staff submitting on a student's behalf still can.
+        if (!$this->get_journal_settings()->allows_early_submission() && (int) $submission->userid === (int) $USER->id) {
+            throw new moodle_exception('submitatdeadline', self::COMPONENT);
+        }
         (new journal($this->assignment, $submission))->lock_open_items();
     }
 

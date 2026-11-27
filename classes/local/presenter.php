@@ -99,7 +99,7 @@ final class presenter {
         }
         $author = $comment->authorid ? \core_user::get_user($comment->authorid) : null;
         $a = (object) [
-            'name' => $author ? fullname($author) : get_string('unknownuser'),
+            'name' => s($author ? fullname($author) : get_string('unknownuser')),
             'date' => self::time($comment->timemodified),
         ];
         $html = html_writer::div(get_string('commentby', self::COMPONENT, $a), 'small fw-bold');

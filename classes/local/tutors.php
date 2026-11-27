@@ -54,7 +54,7 @@ final class tutors {
      */
     public static function can_comment(\assign $assign, int $studentid, int $userid): bool {
         $context = $assign->get_context();
-        if ($userid == $studentid || !has_capability('mod/assign:grade', $context, $userid)) {
+        if (!self::can_view($assign, $studentid, $userid)) {
             return false;
         }
         if (has_capability('mod/assign:manageallocations', $context, $userid)) {
@@ -75,7 +75,10 @@ final class tutors {
      */
     public static function can_view(\assign $assign, int $studentid, int $userid): bool {
         $context = $assign->get_context();
-        if (!has_capability('mod/assign:grade', $context, $userid)) {
+        if ($userid === $studentid || !has_capability('mod/assign:grade', $context, $userid)) {
+            return false;
+        }
+        if (!self::is_student($assign, $studentid) || !self::shares_group($assign, $studentid, $userid)) {
             return false;
         }
         if (!self::allocation_enabled($assign) || has_capability('mod/assign:manageallocations', $context, $userid)) {
@@ -83,6 +86,40 @@ final class tutors {
         }
         $markers = self::allocated_markers($assign, $studentid);
         return !$markers || in_array($userid, $markers);
+    }
+
+    /**
+     * Whether a user is a student (someone who can submit) enrolled in the Assignment's course.
+     * Suspended students still count, so their Journals stay readable.
+     *
+     * @param \assign $assign The Assignment.
+     * @param int $studentid The user.
+     * @return bool
+     */
+    private static function is_student(\assign $assign, int $studentid): bool {
+        return is_enrolled($assign->get_context(), $studentid, 'mod/assign:submit');
+    }
+
+    /**
+     * Whether a member of staff may see a student under the activity's group mode: in separate
+     * groups, they must share a group unless they can access all groups.
+     *
+     * @param \assign $assign The Assignment.
+     * @param int $studentid The student.
+     * @param int $staffid The member of staff.
+     * @return bool
+     */
+    private static function shares_group(\assign $assign, int $studentid, int $staffid): bool {
+        $cm = $assign->get_course_module();
+        if (
+            groups_get_activity_groupmode($cm) != SEPARATEGROUPS
+                || has_capability('moodle/site:accessallgroups', $assign->get_context(), $staffid)
+        ) {
+            return true;
+        }
+        $studentgroups = groups_get_activity_allowed_groups($cm, $studentid);
+        $staffgroups = groups_get_activity_allowed_groups($cm, $staffid);
+        return (bool) array_intersect_key($studentgroups, $staffgroups);
     }
 
     /**
@@ -140,6 +177,9 @@ final class tutors {
     private static function all_graders(\assign $assign, int $studentid): array {
         $users = get_enrolled_users($assign->get_context(), 'mod/assign:grade', 0, 'u.id', 'u.id ASC', 0, 0, true);
         $ids = array_map(fn($u) => (int) $u->id, $users);
-        return array_values(array_filter($ids, fn($id) => $id !== $studentid));
+        return array_values(array_filter(
+            $ids,
+            fn($id) => $id !== $studentid && self::shares_group($assign, $studentid, $id)
+        ));
     }
 }

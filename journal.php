@@ -88,7 +88,7 @@ $name = $assign->is_blind_marking()
     : fullname($student);
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('journalfor', 'assignsubmission_reflectivejournal', $name));
+echo $OUTPUT->heading(get_string('journalfor', 'assignsubmission_reflectivejournal', s($name)));
 if (!$journal) {
     echo $OUTPUT->notification(get_string('noentries', 'assignsubmission_reflectivejournal'), 'info');
 } else {
@@ -104,7 +104,7 @@ if (!$journal) {
             return html_writer::div(get_string(
                 'commentinprogress',
                 'assignsubmission_reflectivejournal',
-                fullname(core_user::get_user($authorid))
+                s(fullname(core_user::get_user($authorid)))
             ), 'text-muted small mt-2');
         }
         return '';
