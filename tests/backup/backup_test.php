@@ -31,7 +31,7 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * Backup and restore tests for Reflective journal Entries and Comments.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \backup_assignsubmission_reflectivejournal_subplugin
  * @covers     \restore_assignsubmission_reflectivejournal_subplugin

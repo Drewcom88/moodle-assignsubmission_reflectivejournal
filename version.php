@@ -18,15 +18,15 @@
  * Version information for the Reflective journal submission plugin.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'assignsubmission_reflectivejournal';
-$plugin->version   = 2026112700;
+$plugin->version   = 2026112701;
 $plugin->requires  = 2024100700; // Moodle 4.5.
 $plugin->supported = [405, 503];
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.2.0';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '1.0.0';

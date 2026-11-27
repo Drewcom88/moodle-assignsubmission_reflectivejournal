@@ -36,7 +36,7 @@ require_once($CFG->dirroot . '/mod/assign/submission/reflectivejournal/locallib.
  * tutor's data does not remove the Comments they wrote for students.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements

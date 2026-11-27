@@ -20,7 +20,7 @@ namespace assignsubmission_reflectivejournal\local;
  * One saved piece of reflective writing in a Journal.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class entry {

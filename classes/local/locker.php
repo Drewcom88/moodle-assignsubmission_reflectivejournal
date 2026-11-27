@@ -25,7 +25,7 @@ use stdClass;
  * (see journal::is_locked). This records the lock permanently and sends the notification once.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class locker {

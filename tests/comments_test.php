@@ -28,7 +28,7 @@ require_once(__DIR__ . '/journal_testcase.php');
  * Tests for Tutor Comments on Entries.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \assignsubmission_reflectivejournal\local\journal
  */

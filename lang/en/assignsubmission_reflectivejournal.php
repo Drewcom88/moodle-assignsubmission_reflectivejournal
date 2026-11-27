@@ -18,7 +18,7 @@
  * English strings for the Reflective journal submission plugin.
  *
  * @package    assignsubmission_reflectivejournal
- * @copyright  2026 Drewcom88
+ * @copyright  2026 Obline Education
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -79,6 +79,7 @@ $string['notifyentrylocked_body'] = '{$a->student} has added Entry {$a->number} 
 View the journal: {$a->url}';
 $string['notifyentrylocked_small'] = '{$a->student} added Entry {$a->number} in {$a->assignment}';
 $string['notifyentrylocked_subject'] = 'New reflective journal entry: {$a->assignment}';
+$string['overviewheading'] = 'Reflective journals: {$a}';
 $string['pluginname'] = 'Reflective journal';
 $string['privacy:metadata:comment'] = 'Tutor comments on reflective journal entries.';
 $string['privacy:metadata:comment:commenttext'] = 'The text of the comment.';
