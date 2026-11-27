@@ -43,7 +43,7 @@ reflective entries, their tutor comments on each one, and the whole journal is m
 ## Installation
 
 1. Install like any Moodle plugin. Either upload the ZIP from the
-   [releases page](https://github.com/Drewcom88/moodle-reflective-journal/releases) under
+   [releases page](https://github.com/Drewcom88/moodle-assignsubmission_reflectivejournal/releases) under
    **Site administration → Plugins → Install plugins**, or put the plugin's files in
    `mod/assign/submission/reflectivejournal` and visit **Site administration → Notifications**.
 2. Make sure Moodle's cron runs every minute. Two scheduled tasks lock entries and comments when their Edit
@@ -87,8 +87,8 @@ not remove the comments they wrote for students.
 ## Support
 
 - Report bugs and request features in the
-  [issue tracker](https://github.com/Drewcom88/moodle-reflective-journal/issues).
-- Source code is on [GitHub](https://github.com/Drewcom88/moodle-reflective-journal).
+  [issue tracker](https://github.com/Drewcom88/moodle-assignsubmission_reflectivejournal/issues).
+- Source code is on [GitHub](https://github.com/Drewcom88/moodle-assignsubmission_reflectivejournal).
 
 ## Development
 
